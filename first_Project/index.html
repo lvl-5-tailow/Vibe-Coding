@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RAG Tutor AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Navigation -->
+
+
+  <!-- NAVIGATION BAR -->
+
   <nav id="site-header" class="site-header">
     <div class="site-header__brand">
-      <span id="logo" class="logo">LOGO</span>
+      <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="brand-logo-img">
+      <span id="logo" class="brand-title">ESPADA</span>
     </div>
     <div class="site-header__links">
       <a href="#" id="nav-home" class="nav-link">Home</a>
       <a href="#" id="nav-history" class="nav-link">History</a>
-      <a href="#" id="nav-login" class="nav-link">Login</a>
+      <a href="login.html" id="nav-login" class="nav-link">Login</a>
     </div>
   </nav>
 
-  <!-- Main Content -->
+
+  <!-- MAIN CONTENT -->
+
   <div class="main-layout">
+
     <!-- Sidebar -->
+
     <aside id="chat-sidebar" class="chat-sidebar">
       <div class="sidebar-section">
         <button type="button" id="new-chat-btn" class="sidebar-item sidebar-item--highlighted">
@@ -32,62 +42,85 @@
       <div class="sidebar-section">
         <div class="sidebar-section__title">Chats</div>
         <div class="sidebar-item">
-          <span class="sidebar-item__icon">📚</span>
+          <span class="sidebar-item__icon"> </span>
           <span class="sidebar-item__label">Introduction to ML</span>
         </div>
         <div class="sidebar-item">
-          <span class="sidebar-item__icon">🔬</span>
+          <span class="sidebar-item__icon"></span>
           <span class="sidebar-item__label">Physics Fundamentals</span>
         </div>
         <div class="sidebar-item">
-          <span class="sidebar-item__icon">📝</span>
+          <span class="sidebar-item__icon"> </span>
           <span class="sidebar-item__label">Essay Writing Help</span>
         </div>
       </div>
     </aside>
 
     <!-- Chat Area -->
+
     <main id="chat-container" class="chat-container">
       <div id="message-list" class="message-list">
+
         <!-- Welcome State -->
+
         <div class="welcome-screen">
-          <div class="welcome-screen__icon">🤖</div>
-          <h1 class="welcome-screen__title">Welcome to RAG Tutor AI</h1>
+          <div class="welcome-screen__icon">
+            <img src="resources/icons/main_icon.png" alt="ESPADA Logo" height="89">
+          </div>
+          <h1 class="welcome-screen__title">ESPADA</h1>
           <p class="welcome-screen__subtitle">
-            Your intelligent educational assistant powered by Retrieval-Augmented Generation.
             Ask questions, explore topics, and learn at your own pace.
           </p>
         </div>
 
-        <!-- Sample Messages -->
-        <div class="chat-message chat-message--assistant">
-          <div class="chat-message__avatar">AI</div>
-          <div class="chat-message__content">
-            <p>Hello! I'm your educational tutor. How can I help you learn today?</p>
+
+
+        <!-- Input Area -->
+
+        <div class="input-area">
+          <div class="input-wrapper">
+            <div id="file-preview-container" class="file-preview-container"></div>
+            <input type="file" id="file-input" class="file-input" multiple style="display: none;">
+            <button type="button" id="upload-button" class="upload-button" aria-label="Upload file" title="Attach file">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            <textarea id="chat-input" class="chat-input" placeholder="Message RAG Tutor AI..." rows="1"></textarea>
+
+            <div id="pacman-typing-indicator" class="pacman-typing-indicator"
+              title="Pac-Man ghost eyes tracking your typing...">
+              <svg class="pacman-ghost-svg" viewBox="0 0 16 16" width="28" height="28">
+                <!-- Black border outline -->
+                <path fill="#000"
+                  d="M5 0h6v1h2v1h1v2h1v9h-1v2h-1v-1h-1v1h-1v-1h-1v1h-2v-1h-1v1h-1v-1h-1v1h-1v-2H0V4h1V2h1V1h2V0z" />
+                <!-- Red ghost body -->
+                <path fill="#FF0000" d="M5 1h6v1h2v2h1v8h-1v1h-1v-1h-1v1h-2v-1h-1v1h-2v-1h-1v1h-1v-1H2V4h1V2h2V1z" />
+                <!-- White eye sockets -->
+                <rect x="3" y="4" width="4" height="5" fill="#FFF" rx="1" />
+                <rect x="9" y="4" width="4" height="5" fill="#FFF" rx="1" />
+                <!-- Moving Blue Pupils -->
+                <g class="ghost-pupils">
+                  <rect x="4" y="5" width="2" height="3" fill="#0033FF" />
+                  <rect x="10" y="5" width="2" height="3" fill="#0033FF" />
+                </g>
+              </svg>
+            </div>
+
+            <button id="send-button" class="send-button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
           </div>
         </div>
-      </div>
-
-      <!-- Input Area -->
-      <div class="input-area">
-        <div class="input-wrapper">
-          <textarea
-            id="chat-input"
-            class="chat-input"
-            placeholder="Message RAG Tutor AI..."
-            rows="1"
-            disabled
-          ></textarea>
-          <button id="send-button" class="send-button" disabled>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
-        </div>
-      </div>
     </main>
   </div>
   <script src="script.js" defer></script>
 </body>
+
 </html>

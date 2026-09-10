@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — ESPADA</title>
+    <meta name="description" content="Sign in to ESPADA, your intelligent educational AI tutor.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Login-page-specific overrides */
+        body {
+            overflow: auto;
+            justify-content: flex-start;
+        }
+
+        /* ── Login card ── */
+        .login-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            min-height: calc(100vh - 90px);
+            /* below nav */
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: card-in 0.35s ease both;
+        }
+
+        @keyframes card-in {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .login-card__logo {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .login-card__title {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .login-card__subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* ── Form ── */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-field label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.3px;
+        }
+
+        .form-field input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            background-color: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            color: var(--color-text-primary);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-field input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .form-field input:focus {
+            border-color: var(--color-text-muted);
+        }
+
+        /* ── Forgot link ── */
+        .forgot-link {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            text-align: right;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-link:hover {
+            color: var(--color-text-secondary);
+        }
+
+        /* ── Submit button ── */
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--color-bg-primary);
+            background-color: var(--color-accent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            margin-top: 4px;
+        }
+
+        .login-btn:hover {
+            background-color: var(--color-accent-hover);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ── Divider ── */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-text-muted);
+            font-size: 12px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--color-border);
+        }
+
+        /* ── Footer note ── */
+        .login-card__footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        .login-card__footer a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .login-card__footer a:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* ── Error message ── */
+        .login-error {
+            font-size: 13px;
+            color: #ff5555;
+            text-align: center;
+            display: none;
+        }
+
+        .login-error.visible {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+
+    <nav id="site-header" class="site-header">
+        <div class="site-header__brand">
+            <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="brand-logo-img">
+            <span class="brand-title">ESPADA</span>
+        </div>
+        <div class="site-header__links">
+            <a href="index.html" id="nav-home" class="nav-link">Home</a>
+            <a href="#" id="nav-history" class="nav-link">History</a>
+            <a href="login.html" id="nav-login" class="nav-link">Login</a>
+        </div>
+    </nav>
+
+    <!-- LOGIN CONTENT -->
+
+    <div class="login-page">
+        <div class="login-card">
+
+            <div class="login-card__header">
+                <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="login-card__logo">
+                <h1 class="login-card__title">Welcome back</h1>
+                <p class="login-card__subtitle">Sign in to continue to ESPADA</p>
+            </div>
+
+            <form class="login-form" id="login-form" novalidate>
+
+                <div class="form-field">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" placeholder="you@example.com" autocomplete="email"
+                        required>
+                </div>
+
+                <div class="form-field">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="••••••••"
+                        autocomplete="current-password" required>
+                </div>
+
+                <a href="#" class="forgot-link" id="forgot-password-link">Forgot password?</a>
+
+                <p class="login-error" id="login-error">Invalid email or password. Please try again.</p>
+
+                <button type="submit" class="login-btn" id="login-submit-btn">Sign in</button>
+
+            </form>
+
+            <div class="login-divider">or</div>
+
+            <div class="login-card__footer">
+                Don't have an account? <a href="register.html" id="signup-link">Sign up</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script>
+        // Login form handler
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                loginError.classList.add('visible');
+                return;
+            }
+
+            // Placeholder — replace with real auth logic
+            loginError.classList.remove('visible');
+            console.log('Login attempted for:', email);
+        });
+
+        // Hide error on input change
+        ['login-email', 'login-password'].forEach(function (id) {
+            document.getElementById(id).addEventListener('input', function () {
+                loginError.classList.remove('visible');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

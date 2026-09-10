@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — ESPADA</title>
+    <meta name="description" content="Create your ESPADA account and start learning today.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Register-page-specific overrides */
+        body {
+            overflow: auto;
+            justify-content: flex-start;
+        }
+
+        /* ── Register card ── */
+        .login-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            min-height: calc(100vh - 90px);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: card-in 0.35s ease both;
+        }
+
+        @keyframes card-in {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .login-card__logo {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .login-card__title {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            letter-spacing: 0.5px;
+        }
+
+        .login-card__subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* ── Form ── */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-field {
+            flex: 1;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-field label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.3px;
+        }
+
+        .form-field input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            background-color: var(--color-bg-input);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            color: var(--color-text-primary);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-field input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .form-field input:focus {
+            border-color: var(--color-text-muted);
+        }
+
+        .form-field input.input-error {
+            border-color: #ff5555;
+        }
+
+        /* ── Password strength bar ── */
+        .password-strength {
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .password-strength__track {
+            height: 3px;
+            background-color: var(--color-border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .password-strength__fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .password-strength__label {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            transition: color 0.3s ease;
+        }
+
+        /* ── Terms checkbox ── */
+        .terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .terms-row input[type="checkbox"] {
+            margin-top: 2px;
+            accent-color: var(--color-accent);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .terms-row label {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .terms-row label a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .terms-row label a:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* ── Submit button ── */
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--color-bg-primary);
+            background-color: var(--color-accent);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 0.3px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            margin-top: 4px;
+        }
+
+        .login-btn:hover {
+            background-color: var(--color-accent-hover);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ── Divider ── */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-text-muted);
+            font-size: 12px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--color-border);
+        }
+
+        /* ── Footer note ── */
+        .login-card__footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        .login-card__footer a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .login-card__footer a:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* ── Error message ── */
+        .login-error {
+            font-size: 13px;
+            color: #ff5555;
+            text-align: center;
+            display: none;
+        }
+
+        .login-error.visible {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+
+    <nav id="site-header" class="site-header">
+        <div class="site-header__brand">
+            <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="brand-logo-img">
+            <span class="brand-title">ESPADA</span>
+        </div>
+        <div class="site-header__links">
+            <a href="index.html" id="nav-home" class="nav-link">Home</a>
+            <a href="#" id="nav-history" class="nav-link">History</a>
+            <a href="login.html" id="nav-login" class="nav-link">Login</a>
+        </div>
+    </nav>
+
+    <!-- REGISTER CONTENT -->
+
+    <div class="login-page">
+        <div class="login-card">
+
+            <div class="login-card__header">
+                <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="login-card__logo">
+                <h1 class="login-card__title">Create account</h1>
+                <p class="login-card__subtitle">Join ESPADA and start learning today</p>
+            </div>
+
+            <form class="login-form" id="register-form" novalidate>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="reg-firstname">First name</label>
+                        <input type="text" id="reg-firstname" name="firstname"
+                            placeholder="Jane" autocomplete="given-name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="reg-lastname">Last name</label>
+                        <input type="text" id="reg-lastname" name="lastname"
+                            placeholder="Doe" autocomplete="family-name" required>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" name="email"
+                        placeholder="you@example.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" name="password"
+                        placeholder="••••••••" autocomplete="new-password" required>
+                    <div class="password-strength">
+                        <div class="password-strength__track">
+                            <div class="password-strength__fill" id="strength-fill"></div>
+                        </div>
+                        <span class="password-strength__label" id="strength-label"></span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="reg-confirm">Confirm password</label>
+                    <input type="password" id="reg-confirm" name="confirm"
+                        placeholder="••••••••" autocomplete="new-password" required>
+                </div>
+
+                <div class="terms-row">
+                    <input type="checkbox" id="reg-terms" name="terms">
+                    <label for="reg-terms">
+                        I agree to the <a href="#" id="terms-link">Terms of Service</a>
+                        and <a href="#" id="privacy-link">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <p class="login-error" id="register-error">Please fill in all fields correctly.</p>
+
+                <button type="submit" class="login-btn" id="register-submit-btn">Create account</button>
+
+            </form>
+
+            <div class="login-divider">or</div>
+
+            <div class="login-card__footer">
+                Already have an account? <a href="login.html" id="signin-link">Sign in</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script>
+        // ── Password strength meter ──
+        const passwordInput = document.getElementById('reg-password');
+        const strengthFill = document.getElementById('strength-fill');
+        const strengthLabel = document.getElementById('strength-label');
+
+        const strengthLevels = [
+            { label: '',         color: 'transparent', width: '0%'   },
+            { label: 'Weak',     color: '#ff5555',      width: '33%'  },
+            { label: 'Fair',     color: '#ffaa33',      width: '66%'  },
+            { label: 'Strong',   color: '#44cc77',      width: '100%' },
+        ];
+
+        function getStrength(pw) {
+            if (!pw) return 0;
+            let score = 0;
+            if (pw.length >= 8)                     score++;
+            if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+            if (/[0-9]/.test(pw) || /[^a-zA-Z0-9]/.test(pw)) score++;
+            return score;
+        }
+
+        passwordInput.addEventListener('input', function () {
+            const level = strengthLevels[getStrength(this.value)];
+            strengthFill.style.width = level.width;
+            strengthFill.style.backgroundColor = level.color;
+            strengthLabel.textContent = level.label;
+            strengthLabel.style.color = level.color;
+        });
+
+        // ── Form validation & submit ──
+        const registerForm = document.getElementById('register-form');
+        const registerError = document.getElementById('register-error');
+
+        registerForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const firstname = document.getElementById('reg-firstname').value.trim();
+            const lastname  = document.getElementById('reg-lastname').value.trim();
+            const email     = document.getElementById('reg-email').value.trim();
+            const password  = document.getElementById('reg-password').value;
+            const confirm   = document.getElementById('reg-confirm').value;
+            const terms     = document.getElementById('reg-terms').checked;
+
+            if (!firstname || !lastname || !email || !password || !confirm) {
+                showError('Please fill in all fields.');
+                return;
+            }
+
+            if (password !== confirm) {
+                showError('Passwords do not match.');
+                document.getElementById('reg-confirm').classList.add('input-error');
+                return;
+            }
+
+            if (!terms) {
+                showError('You must agree to the Terms of Service.');
+                return;
+            }
+
+            // Placeholder — replace with real registration logic
+            registerError.classList.remove('visible');
+            console.log('Register attempted for:', email);
+        });
+
+        function showError(msg) {
+            registerError.textContent = msg;
+            registerError.classList.add('visible');
+        }
+
+        // Clear errors on input
+        ['reg-firstname','reg-lastname','reg-email','reg-password','reg-confirm'].forEach(function (id) {
+            document.getElementById(id).addEventListener('input', function () {
+                registerError.classList.remove('visible');
+                this.classList.remove('input-error');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
