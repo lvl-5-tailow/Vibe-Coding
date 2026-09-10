@@ -1,2 +1,5 @@
 # Claude Code local settings (contains secrets)
 .claude/settings.local.json
+
+# Private developer notes — kept local only
+first_Project/NOTES.md

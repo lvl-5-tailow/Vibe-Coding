@@ -22,8 +22,7 @@
             align-items: center;
             justify-content: center;
             padding: 48px 24px;
-            min-height: calc(100vh - 90px);
-            /* below nav */
+            min-height: 100vh;
         }
 
         .login-card {
@@ -208,19 +207,7 @@
 
 <body>
 
-    <!-- NAVIGATION BAR -->
 
-    <nav id="site-header" class="site-header">
-        <div class="site-header__brand">
-            <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="brand-logo-img">
-            <span class="brand-title">ESPADA</span>
-        </div>
-        <div class="site-header__links">
-            <a href="index.html" id="nav-home" class="nav-link">Home</a>
-            <a href="#" id="nav-history" class="nav-link">History</a>
-            <a href="login.html" id="nav-login" class="nav-link">Login</a>
-        </div>
-    </nav>
 
     <!-- LOGIN CONTENT -->
 
@@ -265,34 +252,6 @@
     </div>
 
     <script src="script.js" defer></script>
-    <script>
-        // Login form handler
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
-
-            if (!email || !password) {
-                loginError.classList.add('visible');
-                return;
-            }
-
-            // Placeholder — replace with real auth logic
-            loginError.classList.remove('visible');
-            console.log('Login attempted for:', email);
-        });
-
-        // Hide error on input change
-        ['login-email', 'login-password'].forEach(function (id) {
-            document.getElementById(id).addEventListener('input', function () {
-                loginError.classList.remove('visible');
-            });
-        });
-    </script>
-
 </body>
 
 </html>

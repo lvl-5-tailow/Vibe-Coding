@@ -22,7 +22,7 @@
             align-items: center;
             justify-content: center;
             padding: 48px 24px;
-            min-height: calc(100vh - 90px);
+            min-height: 100vh;
         }
 
         .login-card {
@@ -272,19 +272,7 @@
 
 <body>
 
-    <!-- NAVIGATION BAR -->
 
-    <nav id="site-header" class="site-header">
-        <div class="site-header__brand">
-            <img src="resources/icons/main_icon.png" alt="ESPADA Logo" class="brand-logo-img">
-            <span class="brand-title">ESPADA</span>
-        </div>
-        <div class="site-header__links">
-            <a href="index.html" id="nav-home" class="nav-link">Home</a>
-            <a href="#" id="nav-history" class="nav-link">History</a>
-            <a href="login.html" id="nav-login" class="nav-link">Login</a>
-        </div>
-    </nav>
 
     <!-- REGISTER CONTENT -->
 
@@ -360,85 +348,6 @@
     </div>
 
     <script src="script.js" defer></script>
-    <script>
-        // ── Password strength meter ──
-        const passwordInput = document.getElementById('reg-password');
-        const strengthFill = document.getElementById('strength-fill');
-        const strengthLabel = document.getElementById('strength-label');
-
-        const strengthLevels = [
-            { label: '',         color: 'transparent', width: '0%'   },
-            { label: 'Weak',     color: '#ff5555',      width: '33%'  },
-            { label: 'Fair',     color: '#ffaa33',      width: '66%'  },
-            { label: 'Strong',   color: '#44cc77',      width: '100%' },
-        ];
-
-        function getStrength(pw) {
-            if (!pw) return 0;
-            let score = 0;
-            if (pw.length >= 8)                     score++;
-            if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
-            if (/[0-9]/.test(pw) || /[^a-zA-Z0-9]/.test(pw)) score++;
-            return score;
-        }
-
-        passwordInput.addEventListener('input', function () {
-            const level = strengthLevels[getStrength(this.value)];
-            strengthFill.style.width = level.width;
-            strengthFill.style.backgroundColor = level.color;
-            strengthLabel.textContent = level.label;
-            strengthLabel.style.color = level.color;
-        });
-
-        // ── Form validation & submit ──
-        const registerForm = document.getElementById('register-form');
-        const registerError = document.getElementById('register-error');
-
-        registerForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const firstname = document.getElementById('reg-firstname').value.trim();
-            const lastname  = document.getElementById('reg-lastname').value.trim();
-            const email     = document.getElementById('reg-email').value.trim();
-            const password  = document.getElementById('reg-password').value;
-            const confirm   = document.getElementById('reg-confirm').value;
-            const terms     = document.getElementById('reg-terms').checked;
-
-            if (!firstname || !lastname || !email || !password || !confirm) {
-                showError('Please fill in all fields.');
-                return;
-            }
-
-            if (password !== confirm) {
-                showError('Passwords do not match.');
-                document.getElementById('reg-confirm').classList.add('input-error');
-                return;
-            }
-
-            if (!terms) {
-                showError('You must agree to the Terms of Service.');
-                return;
-            }
-
-            // Placeholder — replace with real registration logic
-            registerError.classList.remove('visible');
-            console.log('Register attempted for:', email);
-        });
-
-        function showError(msg) {
-            registerError.textContent = msg;
-            registerError.classList.add('visible');
-        }
-
-        // Clear errors on input
-        ['reg-firstname','reg-lastname','reg-email','reg-password','reg-confirm'].forEach(function (id) {
-            document.getElementById(id).addEventListener('input', function () {
-                registerError.classList.remove('visible');
-                this.classList.remove('input-error');
-            });
-        });
-    </script>
-
 </body>
 
 </html>
