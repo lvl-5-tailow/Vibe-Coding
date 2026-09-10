@@ -1,7 +1,9 @@
-// Navigation button handlers
-document.querySelectorAll('.nav-btn').forEach(function(btn) {
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
+// Navigation link handlers
+const navLinks = document.querySelectorAll('.nav-link');
+
+navLinks.forEach(function (navLink) {
+  navLink.addEventListener('click', function (event) {
+    event.preventDefault();
     window.open('about:blank', '_self');
   });
 });
