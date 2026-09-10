@@ -107,16 +107,11 @@ if (loginForm && loginError) {
 // ── Register Page ─────────────────────────────────────────────────────────────
 
 var passwordInput = document.getElementById('reg-password');
-var strengthFill = document.getElementById('strength-fill');
+var strengthContainer = document.querySelector('.password-strength');
 var strengthLabel = document.getElementById('strength-label');
 
-if (passwordInput && strengthFill && strengthLabel) {
-  var strengthLevels = [
-    { label: '', color: 'transparent', width: '0%' },
-    { label: 'Weak', color: '#ff5555', width: '33%' },
-    { label: 'Fair', color: '#ffaa33', width: '66%' },
-    { label: 'Strong', color: '#44cc77', width: '100%' },
-  ];
+if (passwordInput && strengthContainer && strengthLabel) {
+  var strengthLabels = ['', 'Weak', 'Fair', 'Strong'];
 
   function getStrength(pw) {
     if (!pw) return 0;
@@ -128,11 +123,9 @@ if (passwordInput && strengthFill && strengthLabel) {
   }
 
   passwordInput.addEventListener('input', function () {
-    var level = strengthLevels[getStrength(this.value)];
-    strengthFill.style.width = level.width;
-    strengthFill.style.backgroundColor = level.color;
-    strengthLabel.textContent = level.label;
-    strengthLabel.style.color = level.color;
+    var score = getStrength(this.value);
+    strengthContainer.setAttribute('data-strength', score);
+    strengthLabel.textContent = strengthLabels[score];
   });
 }
 
